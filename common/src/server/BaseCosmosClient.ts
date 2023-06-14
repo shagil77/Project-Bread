@@ -1,40 +1,35 @@
 import { CosmosClient } from '@azure/cosmos'
 import { appCosmosClient } from './AppCosmosClient'
 
-export default abstract class BaseCosmosClient<TEntity> {
-  protected databaseId: string
-  protected abstract containerName: string
+export default class BaseCosmosClient<TEntity> {
+  protected databaseId = process.env.DATABASE_NAME as string
+  protected containerName = ''
 
   protected client: CosmosClient
   protected c: new (initialState?: TEntity) => TEntity
 
   constructor(c: new (initialState?: TEntity) => TEntity) {
-    if (process.env.DATABASE_NAME === undefined)
-      throw new Error('DATABASE_NAME is not defined')
-
-    this.databaseId = process.env.DATABASE_NAME
     this.client = appCosmosClient.client
     this.c = c
   }
 
-  public async createOrUpdate(entity: TEntity): Promise<TEntity> {
+  public async createOrUpdate(entity: TEntity): Promise<TEntity | undefined> {
     const { item } = await this.client
       .database(this.databaseId)
       .container(this.containerName)
       .items.upsert(entity)
-    const result = await this.getById(item.id)
-    if (result === null) throw Error('Entity not returned after createOrUpdate')
-    return result as TEntity
+
+    return this.getById(item.id)
   }
 
-  public async getById(id: string): Promise<TEntity | null> {
+  public async getById(id: string): Promise<TEntity | undefined> {
     return this.getByPropertyValue('id', id)
   }
 
   public async getByPropertyValue(
     propertyName: string,
     value: string
-  ): Promise<TEntity | null> {
+  ): Promise<TEntity | undefined> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
       parameters: [{ name: '@val', value: value }],
@@ -49,13 +44,13 @@ export default abstract class BaseCosmosClient<TEntity> {
       return new this.c(results[0])
     }
 
-    return null
+    return undefined
   }
 
   public async getAllByPropertyValue(
     propertyName: string,
     value: string
-  ): Promise<TEntity[]> {
+  ): Promise<TEntity[] | undefined> {
     const querySpec = {
       query: `SELECT * FROM c WHERE c.${propertyName}=@val`,
       parameters: [{ name: '@val', value: value }],
@@ -69,7 +64,45 @@ export default abstract class BaseCosmosClient<TEntity> {
     return results.map((i) => new this.c(i))
   }
 
-  public async getAll(): Promise<TEntity[]> {
+  public async getParticularItemByPropertyValue(
+    itemName: string,
+    propertyName: string,
+    value: string
+  ): Promise<TEntity[] | []> {
+    const querySpec = {
+      query: `SELECT c.${itemName} FROM c WHERE c.${propertyName}=@val`,
+      parameters: [{ name: '@val', value: value }],
+    }
+    const { resources: results } = await this.client
+      .database(this.databaseId)
+      .container(this.containerName)
+      .items.query(querySpec)
+      .fetchAll()
+    if (results) {
+      return results.map((i) => new this.c(i))
+    }
+    return []
+  }
+
+  public async getAllBySimilarValue(
+    propertyName: string,
+    value: string
+  ): Promise<TEntity[] | null> {
+    const querySpec = {
+      query: `SELECT * FROM c WHERE LOWER(c.${propertyName}) LIKE LOWER(@val)`,
+      parameters: [{ name: '@val', value: `%${value}%` }],
+    }
+
+    const { resources: results } = await this.client
+      .database(this.databaseId)
+      .container(this.containerName)
+      .items.query(querySpec)
+      .fetchAll()
+
+    return results.map((i) => new this.c(i))
+  }
+
+  public async getAll(): Promise<TEntity[] | undefined> {
     const querySpec = {
       query: `SELECT * FROM c`,
     }
@@ -82,11 +115,29 @@ export default abstract class BaseCosmosClient<TEntity> {
     return results.map((i) => new this.c(i))
   }
 
-  public async deleteById(id: string, partitionKey: string): Promise<void> {
-    await this.client
+  public async deleteById(id: string, partitionKey: string): Promise<any> {
+    const result = await this.client
       .database(this.databaseId)
       .container(this.containerName)
       .item(id, partitionKey)
       .delete()
+
+    return result
+  }
+
+  public async patchProperty(patientId: string) {
+    const result = await this.client
+      .database(this.databaseId)
+      .container(this.containerName)
+      .item(patientId, patientId)
+      .patch([
+        {
+          op: 'add',
+          value: 'test from api',
+          path: `/test`,
+        },
+      ])
+
+    return result
   }
 }
