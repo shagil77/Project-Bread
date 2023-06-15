@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import type { NextApiRequest, NextApiResponse } from 'next'
-import User from '../../../../../common/src/model/User'
-import UserCosmosClient from '../../../../../common/src/server/UserCosmosClient'
+import User from '../../../../../common/dist/model/User'
+import UserCosmosClient from '../../../../../common/dist/server/UserCosmosClient'
 
 export default async function handler(
     req: NextApiRequest,
