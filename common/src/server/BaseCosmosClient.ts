@@ -18,7 +18,6 @@ export default class BaseCosmosClient<TEntity> {
       .database(this.databaseId)
       .container(this.containerName)
       .items.upsert(entity)
-
     return this.getById(item.id)
   }
 
