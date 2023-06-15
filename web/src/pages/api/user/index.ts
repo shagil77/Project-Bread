@@ -22,7 +22,8 @@ export default async function handler(
     } else if (method === 'POST') {
         // const cosmosClient = new UserCosmosClient()
         try {
-            const user = await cosmosClient.createOrUpdateUser(req.body)
+            const user = new User(req.body)
+            await cosmosClient.createOrUpdateUser(user)
             res.status(200).json(user)
         } catch (e) {
             //need to update as per the api
