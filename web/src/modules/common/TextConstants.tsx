@@ -1,4 +1,4 @@
 export const TextConstants = {
-    ApplicationName: 'Caravel Labs Starter Kit',
+    ApplicationName: 'Project Bread',
     Title: 'Welcome to NextJs Starter Project',
 }
