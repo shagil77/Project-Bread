@@ -7,14 +7,11 @@ export default class UserCosmosClient extends BaseCosmosClient<User> {
     this.containerName = process.env.COSMOSDB_USERS_CONTAINER as string
   }
 
-  public async getById(id: string): Promise<User | undefined> {
-    return (await super.getById(id)) as User
+  createOrUpdateUser = async (user: User): Promise<User> => {
+    return (await super.createOrUpdate(user)) as User
   }
 
-  public async getByPropertyValue(
-    propertyName: string,
-    value: string
-  ): Promise<User | undefined> {
-    return (await super.getByPropertyValue(propertyName, value)) as User
+  getUsers = async (): Promise<User[]> => {
+    return (await super.getAll()) as User[]
   }
 }

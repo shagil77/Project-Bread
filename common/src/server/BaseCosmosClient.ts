@@ -124,20 +124,4 @@ export default class BaseCosmosClient<TEntity> {
 
     return result
   }
-
-  public async patchProperty(patientId: string) {
-    const result = await this.client
-      .database(this.databaseId)
-      .container(this.containerName)
-      .item(patientId, patientId)
-      .patch([
-        {
-          op: 'add',
-          value: 'test from api',
-          path: `/test`,
-        },
-      ])
-
-    return result
-  }
 }
