@@ -18,6 +18,7 @@ export default async function handler(
             //need to update as per the api
             // eslint-disable-next-line no-console
             console.log(e)
+            res.status(500).end()
         }
     } else if (method === 'POST') {
         console.log("hello")
