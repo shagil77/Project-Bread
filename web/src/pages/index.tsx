@@ -9,7 +9,6 @@ import { useRouter } from 'next/router'
 import { styled } from '@mui/system'
 import { FitScreen } from '@mui/icons-material'
 //import Image from 'web/src/res/bghome.jpg';
-
 ;('use-client')
 
 function Index() {
