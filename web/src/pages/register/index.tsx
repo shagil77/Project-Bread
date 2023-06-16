@@ -11,7 +11,7 @@ const RegisterPage: React.FC = () => {
     const [school, setSchool] = useState('')
     const [readerType, setReaderType] = useState('')
     const [profilePicture, setProfilePicture] = useState('')
-    
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
@@ -37,11 +37,28 @@ const RegisterPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <div
+            style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: `url('https://t3.ftcdn.net/jpg/05/72/52/56/240_F_572525689_pBHSZBd7LGeW5r5Yr5Yf8u5SueIqvUyh.jpg')`,
+                backgroundSize: 'cover',
+            }}
+        >
             <h1 style={{ textAlign: 'center' }}>Register Page</h1>
             <form
                 onSubmit={handleSubmit}
-                style={{ maxWidth: '400px', margin: '0 auto' }}
+                style={{
+                    maxWidth: '400px',
+                    margin: '0 auto',
+                    padding: '20px',
+                    borderRadius: '10px',
+                    boxShadow: '0 0 10px rgba(0, 0, 0, 0.5)',
+                    background: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg")`,
+                }}
             >
                 <div style={{ marginBottom: '10px' }}>
                     <label htmlFor="readerId">Reader ID:</label>
