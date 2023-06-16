@@ -78,12 +78,13 @@ function Index(): JSX.Element {
         setUserId(event.target.value)
     }
 
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        console.log(userId)
+        // event.preventDefault()
         // Add your logic for handling the form submission and authentication here
         try {
             const getUser = await axios.get('/api/user/' + userId)
-
+            console.log(getUser)
             if (getUser) router.push(`/signin?param=${userId}`)
         } catch (e: any) {
             console.log('User ID:', userId)
@@ -126,7 +127,7 @@ function Index(): JSX.Element {
                         variant="outlined"
                         margin="normal"
                     />
-                    <Button type="submit" onClick={() => handleSubmit}>Continue</Button>
+                    <Button type="submit" onClick={(e) => handleSubmit(e)}>Continue</Button>
                 </FormGroup>
                 </div>
         </div>

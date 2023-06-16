@@ -3,7 +3,7 @@ import axios from "axios";
 import { useRouter } from 'next/router'
 
 
-const RegisterPage: React.FC = () => {
+const RegisterPage:React.FC = () => {
   const router = useRouter()
 
     const [readerId, setReaderId] = useState('')
@@ -42,6 +42,7 @@ const RegisterPage: React.FC = () => {
       console.error(error);
       window.alert(error)
     }
+  }
 
     return (
         <div>
@@ -157,6 +158,6 @@ const RegisterPage: React.FC = () => {
         </div>
     )
   }
-}
+
 
 export default RegisterPage
