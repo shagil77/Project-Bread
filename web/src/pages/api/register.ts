@@ -9,7 +9,7 @@ export default async function handler(
 ): Promise<void> {
     const { method } = req
     const cosmosClient = new UserCosmosClient()
-    
+
     if (method === 'POST') {
         console.log('hello')
         // const cosmosClient = new UserCosmosClient()
