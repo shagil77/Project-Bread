@@ -4,6 +4,9 @@ import AppShell from '../modules/common/AppShell'
 import { Button, Container, Typography, TextField } from '@mui/material'
 import { StoreContext } from '../modules/common/StoreProvider'
 import { TextConstants } from '../modules/common/TextConstants'
+import Link from 'next/link'
+import next from 'next/types'
+
 function Index() {
     // return (
     //     <AppShell>
@@ -21,6 +24,7 @@ function Index() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         // Add your logic for handling the form submission and authentication here
+
         console.log('User ID:', userId)
     }
 
@@ -35,9 +39,10 @@ function Index() {
                     variant="outlined"
                     margin="normal"
                 />
-                <Button variant="contained" type="submit" color="primary">
+                <Link href="/signin">Sign In</Link>
+                {/* <Button variant="contained" type="submit" color="primary">
                     Sign In
-                </Button>
+                </Button> */}
             </form>
         </div>
     )
