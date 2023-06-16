@@ -32,22 +32,17 @@ const BirthDateForm = () => {
         try {
             const loginUser = await axios.get(`/api/user/${readerId}`)
 
-            if(loginUser.data.dateOfBirth === birthDate) {
+            if (loginUser.data.dateOfBirth === birthDate) {
                 window.alert('Login Successful!!')
-                
             }
-        } catch(e) {
+        } catch (e) {
             window.alert(e)
             setDay('')
             setMonth('')
             setYear('')
         }
-        
-
-
 
         // Reset the form
-        
     }
 
     return (
