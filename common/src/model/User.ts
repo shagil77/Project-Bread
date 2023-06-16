@@ -7,6 +7,7 @@ export default class User {
   // public name: string | unknown
   // public email: string | unknown
   public id: string | unknown
+  public readerId: string | unknown
   public firstName: string | unknown
   public middleName: string | unknown
   public lastName: string | unknown
@@ -24,9 +25,10 @@ export default class User {
   }
 
   public static CreateNew(initialValues?: Partial<User>): User {
-    
+
     const user = new User()
     user.id = uuidv4().toString()
+    user.readerId = initialValues?.readerId
     user.firstName = initialValues?.firstName
     user.middleName = initialValues?.middleName
     user.lastName = initialValues?.lastName
@@ -34,7 +36,6 @@ export default class User {
     user.dateOfBirth = initialValues?.dateOfBirth
     user.school = initialValues?.school
     user.readerType = initialValues?.readerType
-    user.profilePicture = initialValues?.profilePicture
 
     if (initialValues) {
       assign(user, initialValues)
