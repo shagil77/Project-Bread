@@ -10,3 +10,8 @@ body {
 html {
     height: -webkit-fill-available;
 }
+
+.bg-box {
+    background: url('../res/bghome.jpg')
+    
+}

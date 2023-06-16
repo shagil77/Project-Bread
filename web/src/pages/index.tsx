@@ -1,13 +1,16 @@
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import AppShell from '../modules/common/AppShell'
-import { Button, Container, Typography, TextField } from '@mui/material'
+import { Button, Container, Typography, TextField, Box } from '@mui/material'
 import Link from 'next/link'
 import next from 'next/types'
 //import { makeStyles } from '@mui/system/sty';
 import { useRouter } from 'next/router'
 import { styled } from '@mui/system'
+import { FitScreen } from '@mui/icons-material'
 //import Image from 'web/src/res/bghome.jpg';
+
+;('use-client')
 
 function Index() {
     // return (
@@ -19,25 +22,6 @@ function Index() {
     // )
     const router = useRouter()
     const [userId, setUserId] = useState('')
-
-    // const useStyles = makeStyles((theme: { spacing: (arg0: number) => any; }) => ({
-    //     root: {
-    //       display: 'flex',
-    //       flexDirection: 'column',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //       height: '100vh',
-    //     },
-    //     form: {
-    //       display: 'flex',
-    //       flexDirection: 'column',
-    //       alignItems: 'center',
-    //       gap: theme.spacing(2),
-    //     },
-    //     button: {
-    //       marginTop: theme.spacing(2),
-    //     },
-    //   }));
 
     //   const classes = useStyles();
     const Form = styled('form')({
@@ -65,6 +49,8 @@ function Index() {
     const MyComponent = styled('div')({
         color: 'darkslategray',
         backgroundColor: 'aliceblue',
+        background: `url('https://t3.ftcdn.net/jpg/05/72/52/56/240_F_572525689_pBHSZBd7LGeW5r5Yr5Yf8u5SueIqvUyh.jpg')`,
+        backgroundSize: 'cover',
         padding: 8,
         borderRadius: 4,
         display: 'flex',
@@ -74,17 +60,18 @@ function Index() {
         height: '100vh',
     })
 
-    // const BackgroundImage = styled('div')({
-    //     background: `url(${'./res/bghome.jpg'})`,
-    //     borderRadius: 50,
-    // })
+    const BackgroundImage = styled('div')({
+        background: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg")`,
+        borderRadius: 50,
+        padding: 150,
+    })
 
-    const styles = {
-        bgImage: {
-            background: `url(${'./res/bghome.jpg'})`,
-            borderRadius: 50,
-        },
-    }
+    // const styles = {
+    //     bgImage: {
+    //         backgroundImage: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg")`,
+    //         borderRadius: 50,
+    //     },
+    // }
 
     const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserId(event.target.value)
@@ -100,7 +87,7 @@ function Index() {
 
     return (
         <MyComponent>
-            <div style={styles.bgImage}>
+            <BackgroundImage>
                 <Form onSubmit={handleSubmit}>
                     <TextField
                         label="User ID"
@@ -112,7 +99,7 @@ function Index() {
                     />
                     <Button type="submit">Continue</Button>
                 </Form>
-            </div>
+            </BackgroundImage>
         </MyComponent>
     )
 }
