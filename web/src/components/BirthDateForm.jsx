@@ -1,6 +1,11 @@
+import axios from 'axios'
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 
 const BirthDateForm = () => {
+    const router = useRouter()
+    const readerId = router.query.param
+
     const [day, setDay] = useState('')
     const [month, setMonth] = useState('')
     const [year, setYear] = useState('')
@@ -17,17 +22,32 @@ const BirthDateForm = () => {
         setYear(e.target.value)
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
 
         // Do something with the entered date (e.g., validation, processing, etc.)
-        const birthDate = `${day}/${month}/${year}`
-        console.log(birthDate)
+        const birthDate = `${year}-${month}-${day}`
+        window.alert(birthDate)
+
+        try {
+            const loginUser = await axios.get(`/api/user/${readerId}`)
+
+            if(loginUser.data.dateOfBirth === birthDate) {
+                window.alert('Login Successful!!')
+                
+            }
+        } catch(e) {
+            window.alert(e)
+            setDay('')
+            setMonth('')
+            setYear('')
+        }
+        
+
+
 
         // Reset the form
-        setDay('')
-        setMonth('')
-        setYear('')
+        
     }
 
     return (

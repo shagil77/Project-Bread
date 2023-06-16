@@ -22,7 +22,6 @@ export default async function handler(
             res.status(500).end()
         }
     } else if (method === 'POST') {
-        console.log('hello')
         // const cosmosClient = new UserCosmosClient()
         try {
             const user = User.CreateNew(req.body)
