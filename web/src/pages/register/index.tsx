@@ -45,11 +45,20 @@ const RegisterPage:React.FC = () => {
   }
 
     return (
-        <div>
+        <div style={{
+          background: `url('https://t3.ftcdn.net/jpg/05/72/52/56/240_F_572525689_pBHSZBd7LGeW5r5Yr5Yf8u5SueIqvUyh.jpg')`,
+          backgroundSize: 'cover',
+      }}>
             <h1 style={{ textAlign: 'center' }}>Register Page</h1>
             <form
                 onSubmit={handleSubmit}
-                style={{ maxWidth: '400px', margin: '0 auto' }}
+                style={{
+                  maxWidth: '400px',
+                  margin: '0 auto',
+                  background: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg")`,
+                  padding: '20px',
+                  borderRadius: '10px',
+              }}
             >
                 <div style={{ marginBottom: '10px' }}>
                     <label htmlFor="readerId">Reader ID:</label>
