@@ -1,37 +1,45 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import AppShell from '../modules/common/AppShell'
-import { Button, Container, Typography } from '@mui/material'
+import { Button, Container, Typography, TextField } from '@mui/material'
 import { StoreContext } from '../modules/common/StoreProvider'
 import { TextConstants } from '../modules/common/TextConstants'
 function Index() {
-    const store = useContext(StoreContext)
+    // return (
+    //     <AppShell>
+    //         <Container maxWidth="lg" style={{ marginTop: '40px' }}>
+
+    //         </Container>
+    //     </AppShell>
+    // )
+    const [userId, setUserId] = useState('')
+
+    const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUserId(event.target.value)
+    }
+
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        // Add your logic for handling the form submission and authentication here
+        console.log('User ID:', userId)
+    }
 
     return (
-        <AppShell>
-            <Container maxWidth="lg" style={{ marginTop: '40px' }}>
-                <Typography variant="h3" color="textPrimary" align="center">
-                    {TextConstants.Title}
-                </Typography>
-                <Typography
-                    variant="h5"
-                    color="textSecondary"
-                    align="center"
-                    style={{ marginTop: '20px', marginBottom: '30px' }}
-                >
-                    An initiative by Caravel Labs
-                </Typography>
-                <Button
-                    onClick={() => {
-                        store?.successToast(
-                            'This alert has been configured through Mobx!'
-                        )
-                    }}
-                >
-                    Show alert
+        <div>
+            <form onSubmit={handleSubmit}>
+                <TextField
+                    label="User ID"
+                    value={userId}
+                    onChange={handleUserIdChange}
+                    fullWidth
+                    variant="outlined"
+                    margin="normal"
+                />
+                <Button variant="contained" type="submit" color="primary">
+                    Sign In
                 </Button>
-            </Container>
-        </AppShell>
+            </form>
+        </div>
     )
 }
 
