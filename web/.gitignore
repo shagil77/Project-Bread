@@ -34,4 +34,4 @@ yarn-error.log*
 # vercel
 .vercel
 
-/web/tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo

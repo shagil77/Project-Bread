@@ -5,19 +5,21 @@ import UserCosmosClient from '../../../../../common/dist/server/UserCosmosClient
 
 export default async function handler(
     req: NextApiRequest,
-    res: NextApiResponse<User | User[]>
+    res: NextApiResponse
 ): Promise<void> {
     const { method } = req
     const cosmosClient = new UserCosmosClient()
+    
     if (method === 'GET') {
         // const cosmosClient = new UserCosmosClient()
         try {
             const data = await cosmosClient.getUsers()
             res.status(200).json(data)
-        } catch (e) {
+        } catch (e: any) {
             //need to update as per the api
             // eslint-disable-next-line no-console
             console.log(e)
+            res.status(500).end()
         }
     } else if (method === 'POST') {
         console.log('hello')
@@ -31,6 +33,7 @@ export default async function handler(
             //need to update as per the api
             // eslint-disable-next-line no-console
             console.log(e)
+            res.status(500).end()
         }
     } else {
         res.status(405).end()
