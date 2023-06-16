@@ -6,6 +6,7 @@ import { StoreContext } from '../modules/common/StoreProvider'
 import { TextConstants } from '../modules/common/TextConstants'
 import Link from 'next/link'
 import next from 'next/types'
+import { useRouter } from 'next/router'
 
 function Index() {
     // return (
@@ -15,6 +16,7 @@ function Index() {
     //         </Container>
     //     </AppShell>
     // )
+    const router = useRouter()
     const [userId, setUserId] = useState('')
 
     const handleUserIdChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +26,7 @@ function Index() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         // Add your logic for handling the form submission and authentication here
-
+        router.push('/signin')
         console.log('User ID:', userId)
     }
 
@@ -39,10 +41,9 @@ function Index() {
                     variant="outlined"
                     margin="normal"
                 />
-                <Link href="/signin">Sign In</Link>
-                {/* <Button variant="contained" type="submit" color="primary">
-                    Sign In
-                </Button> */}
+                <Button variant="contained" type="submit" color="primary">
+                    Continue
+                </Button>
             </form>
         </div>
     )
