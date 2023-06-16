@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useRouter } from 'next/router'
 
 
 const RegisterPage: React.FC = () => {
+  const router = useRouter()
+
   const [readerId, setReaderId] = useState("");
   const [firstName, setFirstName] = useState("");
   const [middleName, setMiddleName] = useState("");
@@ -31,10 +34,15 @@ const RegisterPage: React.FC = () => {
         profilePicture,
       });
 
-      // Handle the response as needed
-      console.log(response.data);
+
+
+      if(response) {
+        router.push(`signin?param=${readerId}`)
+        window.alert("Registered Successfully!")
+      }
     } catch (error) {
       console.error(error);
+      window.alert(error)
     }
   };
 
