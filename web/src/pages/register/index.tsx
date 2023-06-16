@@ -11,7 +11,6 @@ const RegisterPage: React.FC = () => {
     const [school, setSchool] = useState('')
     const [readerType, setReaderType] = useState('')
     const [profilePicture, setProfilePicture] = useState('')
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
