@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import AppShell from '../modules/common/AppShell'
-import { Button, Container, Typography, TextField, Box } from '@mui/material'
+import { Button, Container, Typography, TextField, Box, FormGroup } from '@mui/material'
 import Link from 'next/link'
 import next from 'next/types'
 //import { makeStyles } from '@mui/system/sty';
@@ -13,7 +13,7 @@ import { error } from 'console'
 //import Image from 'web/src/res/bghome.jpg';
 ;('use-client')
 
-function Index() {
+function Index(): JSX.Element {
     // return (
     //     <AppShell>
     //         <Container maxWidth="lg" style={{ marginTop: '40px' }}>
@@ -25,12 +25,12 @@ function Index() {
     const [userId, setUserId] = useState('')
 
     //   const classes = useStyles();
-    const Form = styled('form')({
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 2,
-    })
+    // const Form = styled('form')({
+    //     display: 'flex',
+    //     flexDirection: 'column',
+    //     alignItems: 'center',
+    //     gap: 2,
+    // })
 
     const Button = styled('button')({
         maxWidth: 100,
@@ -94,10 +94,31 @@ function Index() {
     }
 
     return (
-        <MyComponent>
-            <BackgroundImage>
-                <Form onSubmit={handleSubmit}>
+        // <MyComponent>
+        //     <BackgroundImage>
+        <div
+            style={{
+                color: 'darkslategray',
+                backgroundColor: 'aliceblue',
+                background: `url('https://t3.ftcdn.net/jpg/05/72/52/56/240_F_572525689_pBHSZBd7LGeW5r5Yr5Yf8u5SueIqvUyh.jpg')`,
+                backgroundSize: 'cover',
+                padding: 8,
+                borderRadius: 4,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100vh',
+            }}
+            >
+            <div style={{
+                background: `url("https://img.freepik.com/free-photo/vivid-blurred-colorful-background_58702-2545.jpg")`,
+                borderRadius: 50,
+                padding: 150,
+            }}>
+            <FormGroup>
                     <TextField
+                        id="userId"
                         label="User ID"
                         value={userId}
                         onChange={handleUserIdChange}
@@ -105,10 +126,13 @@ function Index() {
                         variant="outlined"
                         margin="normal"
                     />
-                    <Button type="submit">Continue</Button>
-                </Form>
-            </BackgroundImage>
-        </MyComponent>
+                    <Button type="submit" onClick={() => handleSubmit}>Continue</Button>
+                </FormGroup>
+                </div>
+        </div>
+                
+        //     </BackgroundImage>
+        // </MyComponent>
     )
 }
 
