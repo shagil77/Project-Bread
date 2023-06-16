@@ -7,6 +7,8 @@ import next from 'next/types'
 //import { makeStyles } from '@mui/system/sty';
 import { useRouter } from 'next/router'
 import { styled } from '@mui/system'
+import axios from 'axios'
+import { error } from 'console'
 //import Image from 'web/src/res/bghome.jpg';
 
 function Index() {
@@ -90,12 +92,19 @@ function Index() {
         setUserId(event.target.value)
     }
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         // Add your logic for handling the form submission and authentication here
-        if (true) router.push('/signin')
-        else router.push('/register')
-        console.log('User ID:', userId)
+        try {
+            const getUser = await axios.get("/api/user/"+userId)
+
+            if(getUser) router.push(`/signin?param=${userId}`)
+        } catch(e:any) {
+            console.log('User ID:', userId)
+            if(e.response && e.response.status==404) {
+                router.push('/register')
+            }
+        }
     }
 
     return (
